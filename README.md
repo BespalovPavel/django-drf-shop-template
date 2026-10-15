@@ -23,7 +23,6 @@ REST API интернет-магазина на Django 6 / Python 3.14 с JWT-а
 - **Аутентификация:** JWT
 - **База данных:** PostgreSQL 16
 - **Документация:** OpenAPI / Swagger UI (`drf-spectacular`)
-- **Статика:** WhiteNoise
 - **Контейнеризация:** Docker, Docker Compose
 - **Тестирование:** `pytest`, `pytest-django`
 
