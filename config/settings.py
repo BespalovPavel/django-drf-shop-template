@@ -14,6 +14,7 @@ import json
 import os
 from datetime import timedelta
 from pathlib import Path
+import sys
 
 from dotenv import load_dotenv
 
@@ -295,6 +296,14 @@ DATABASES = {
     }
 }
 
+if "pytest" in sys.modules or "test" in sys.argv:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": ":memory:",
+        }
+    }
+
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
 
@@ -343,13 +352,13 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-# MAILERS = {
-#     'default': {
-#         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-#     },
-# }
+MAILERS = {
+    'default': {
+        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+    },
+}
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 USE_X_FORWARDED_HOST = True

@@ -25,7 +25,7 @@ def cart_add_item(*, user: User, product_id: int, quantity: int) -> CartItem:
         raise ItemNotFoundError(f"Товар с ID {product_id} не найден в каталоге!")
 
     cart_item, created = CartItem.objects.get_or_create(
-        user=user, product=product, quantity=quantity
+        user=user, product=product, defaults={"quantity": quantity},
     )
 
     if not created:
@@ -78,9 +78,9 @@ def create_order_from_cart(*, user_id: User) -> Order:
             product = locked_products.get(item.product_id)
             if not product:
                 raise ItemNotFoundError(f"Товар ID {item.product_id} более недоступен")
-            if product.stock < item.quantity:
+            if product.in_stock < item.quantity:
                 raise InsufficientStockError(
-                    f"Недостаточно товара '{product.name}' на складе. Доступно: {product.stock}, требуется: {item.quantity}"
+                    f"Недостаточно товара '{product.name}' на складе. Доступно: {product.in_stock}, требуется: {item.quantity}"
                 )
             total_amount += product.price * item.quantity
 

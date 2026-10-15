@@ -137,7 +137,7 @@ class OrderCheckoutView(generics.GenericAPIView):
         return Response(OrderSerializer(order).data, status=status.HTTP_201_CREATED)
 
 
-class OrderListView(generics.GenericAPIView):
+class OrderListView(generics.ListAPIView):
     serializer_class = OrderSerializer
     permission_classes = [permissions.IsAuthenticated]
 

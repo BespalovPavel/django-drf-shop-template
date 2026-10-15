@@ -20,7 +20,7 @@ dependencies = [
     "gunicorn>=26.2.0",
     "markdown>=3.11",
     "psycopg2-binary>=2.9.13",
-    "ruff>=0.17.0",
+    "wemake-python-styleguide>=1.8.1",
 ]
 
 [project.scripts]
@@ -38,3 +38,21 @@ ignore = ["E501"]
 quote-style = "double"
 indent-style = "space"
 skip-magic-trailing-comma = false
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "*/migrations/*",
+    "manage.py",
+    "config/wsgi.py",
+    "config/asgi.py",
+    "tests/*",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "pytest-django>=4.14.0",
+    "ruff>=0.17.0",
+]
